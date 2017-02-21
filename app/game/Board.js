@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import Style from '../view/Style'
 import Cell from './Cell';
 import * as game from './GameActions'
+import { X, O } from './ConstSymbols';
+import { XSymbol } from './XSymbol'
 
 class Board extends Component {
   addSymbol (rowIndex, position, symbol) {
@@ -14,18 +16,19 @@ class Board extends Component {
 
   getSymbol(rowIndex, position, symbol) {
     if (symbol === X) {
-      return <XSymbol key={position} position={position} />;
+      //return <XSymbol key={position} position={position} />;
     }
     if (symbol === O) {
-      return <OSymbol key={position} position={position} />;
+      //return <OSymbol key={position} position={position} />;
     }
-    return <BlankSymbol key={position} addSymbol={this.addSymbol.bind(this, rowIndex, position)} turn={this.props.turn} />;
+    //return <BlankSymbol key={position} addSymbol={this.addSymbol.bind(this, rowIndex, position)} turn={this.props.turn} />;
   }
 
   boardClickHandler(e: Object) {
     const { locationX, locationY } = e.nativeEvent;
-    console.log(Math.round(3*locationX/312));
-    console.log(Math.round(3*locationY/312));
+    let rowIndex = Math.round(3*locationY/312);
+    let position = Math.round(3*locationX/312);
+    this.addSymbol(rowIndex, position, X)
   }
 
   render() {
@@ -108,10 +111,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     addSymbol (rowIndex, position, symbol) {
-      dispatch(addSymbol(rowIndex, position, symbol));
+      dispatch(game.addSymbol(rowIndex, position, symbol));
     },
     startAgain () {
-      dispatch(startAgain());
+      dispatch(game.startAgain());
     }
   };
 }

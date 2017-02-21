@@ -1,12 +1,12 @@
 'use strict';
 
-import { Map } from 'immutable'
+import { Map, fromJS } from 'immutable'
 import * as game from './GameActions'
 import { X, O } from './ConstSymbols';
 
-import { resultForSymbol } from './logic';
+import { resultForSymbol } from './Logic';
 
-const defaultState = Map({
+const defaultState = fromJS({
   board: ['', '', '',
           '', '', '',
           '', '', ''],
@@ -20,9 +20,14 @@ export default function (state = defaultState, action) {
     switch(action.type) {
         case game.ADD_SYMBOL:
           const {symbol, row, position} = action;
-          newState = state.setIn(['board', (3*row + column)], symbol);
+          console.log(3*row+position)
+          console.log(symbol)
 
-          const newBoard = newState.get('board').toJs();
+          let newState = state.setIn(['board', 3*row+position], symbol);
+
+          const newBoard = newState.get('board').toArray();
+          console.log("New Board: ")
+          console.log(newBoard)
 
           const xResult = resultForSymbol(X, newBoard);
           const oResult = resultForSymbol(O, newBoard);
