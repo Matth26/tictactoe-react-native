@@ -23,7 +23,7 @@ import reducer from './app/root/Reducer';
 
 import { Iterable } from 'immutable'; // immutable for State
 
-// In order to convert state to an easy-to-read plain JavaScript object hierarchy:
+// In order to convert state to an easy-to-read plain JavaScript object hierarchy for the redux logger:
 const stateTransformer = (state) => {
   if (Iterable.isIterable(state)) {
     return state.toJS()
@@ -35,6 +35,9 @@ const stateTransformer = (state) => {
 const logger = createLogger({ stateTransformer }); // logger middleware
 const store = createStore(reducer, applyMiddleware(logger)) // from Redux: the store hold the whole state tree
 // of the application, reducer is a reducer which regroup all the other ones
+
+console.log("AHHHHHHHHHHHHHHHHHHHHHHHH")
+console.log(store.getState());
 
 class tictactoe extends Component {
   render() {

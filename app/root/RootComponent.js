@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as SceneConst from '../scene/Const.js'
 import MenuComponent from '../menu/MenuComponent';
 import GameComponent from '../game/GameComponent';
+import Board from '../game/Board';
 import { Actions } from 'react-native-router-flux'
 
 
@@ -25,7 +26,7 @@ class RootComponent extends Component {
       <RouterWithRedux>
         <Scene key="root">
           <Scene key={SceneConst.MAIN_SCENE} component={MenuComponent} title="Menu" initial={true}/>
-          <Scene key={SceneConst.GAME_SCENE} component={GameComponent} title="Game" onBack={this._onBack.bind(this)}/>
+          <Scene key={SceneConst.GAME_SCENE} component={Board} title="Game" onBack={this._onBack.bind(this)}/>
         </Scene>
       </RouterWithRedux>
     )

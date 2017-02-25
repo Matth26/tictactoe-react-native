@@ -7,9 +7,11 @@ import { X, O } from './ConstSymbols';
 import { resultForSymbol } from './Logic';
 
 const defaultState = fromJS({
-  board: ['', '', '',
-          '', '', '',
-          '', '', ''],
+  board: {
+    0: fromJS(['', '', '']),
+    1: fromJS(['', '', '']),
+    2: fromJS(['', '', ''])
+  },
   won: undefined,
   wonLine: undefined,
   draw: false,
@@ -20,14 +22,10 @@ export default function (state = defaultState, action) {
     switch(action.type) {
         case game.ADD_SYMBOL:
           const {symbol, row, position} = action;
-          console.log(3*row+position)
-          console.log(symbol)
 
-          let newState = state.setIn(['board', 3*row+position], symbol);
+          let newState = state.setIn(['board', row.toString(), position], symbol);
 
-          const newBoard = newState.get('board').toArray();
-          console.log("New Board: ")
-          console.log(newBoard)
+          const newBoard = newState.get('board').toJS();
 
           const xResult = resultForSymbol(X, newBoard);
           const oResult = resultForSymbol(O, newBoard);
@@ -44,12 +42,16 @@ export default function (state = defaultState, action) {
 
           if (!newState.get('won')) {
             let newTurn = newState.get('turn') === O ? X : O;
-            newState = newState.set('turn', turn);
+            newState = newState.set('turn', newTurn);
           }
-
-
-          const boardIsFull = newBoard.filter(symbol => symbol !== '')
-                                      .length === 9;
+          
+          const boardIsFull = [
+            ...newBoard[0],
+            ...newBoard[1],
+            ...newBoard[2]
+          ]
+            .filter(symbol => symbol !== '')
+            .length === 9;
 
           if (boardIsFull && !newState.get('won')) {
             newState = newState.set('draw', true);

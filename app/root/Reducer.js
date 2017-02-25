@@ -10,7 +10,7 @@ import gameReducer from '../game/GameReducer'
 // two reducers to combine, the one managing the ble and the one managing the routes!
 export default combineReducers({
   route: sceneReducer,
-  gameReducer: gameReducer
+  game: gameReducer
 })
 
 /* Those two functions are the same

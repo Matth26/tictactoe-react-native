@@ -21,11 +21,8 @@ const hasWonInRightSlant = (symbol, ...rows) => countInRightSlant(symbol, ...row
 export const hasThreatInRightSlant = (symbol, ...rows) => countInRightSlant(symbol, ...rows) === 2;
 
 export const resultForSymbol = (symbol, board) => {
-  console.log(board)
-  console.log(symbol)
-  const rows = [ [board[0], board[1], board[2]], [board[3], board[4], board[5]], [board[6], board[7], board[8]]]
-  console.log(rows)
-  //const rows = Object.keys(board).map(row => board[row]);
+  const rows = Object.keys(board).map(row => board[row]);
+  
   return [
     {line: 'row0', won: hasWonInRow(symbol, board[0])},
     {line: 'row1', won: hasWonInRow(symbol, board[1])},
