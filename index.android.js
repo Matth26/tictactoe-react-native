@@ -36,9 +36,6 @@ const logger = createLogger({ stateTransformer }); // logger middleware
 const store = createStore(reducer, applyMiddleware(logger)) // from Redux: the store hold the whole state tree
 // of the application, reducer is a reducer which regroup all the other ones
 
-console.log("AHHHHHHHHHHHHHHHHHHHHHHHH")
-console.log(store.getState());
-
 class tictactoe extends Component {
   render() {
     return (
